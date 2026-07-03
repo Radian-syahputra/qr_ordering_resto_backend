@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 import authRoute from './modules/auth/auth.router'
+import categoryRoute from './modules/category/category.router'
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -18,6 +19,7 @@ app.use(cookieParser())
 
 // Router
 app.use('/api/auth', authRoute)
+app.use('/api/categories', categoryRoute)
 
 app.get('/', (req, res) => {
     res.send('Server Berjalan')
