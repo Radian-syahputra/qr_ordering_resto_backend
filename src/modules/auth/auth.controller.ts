@@ -6,10 +6,6 @@ import { AuthRequest } from "../../middlewares/auth";
 export const registerController = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
-    if (!name || !email || !password) {
-      return errorResponse(res, "Name, email, and password wajib diisi", 400);
-    }
-
     const user = await registerService(name, email, password);
     return successResponse(res, "User registered successfully", user, 201);
   } catch (error: any) {
@@ -19,10 +15,7 @@ export const registerController = async (req: Request, res: Response) => {
 
 export const loginController = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return errorResponse(res, "Email dan password wajib diisi", 400);
-    }
+    const { email, password } = req.body
 
     const { token, user } = await loginService(email, password);
 
