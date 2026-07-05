@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import authRoute from './modules/auth/auth.router'
 import categoryRoute from './modules/category/category.router'
 import menuRoute from './modules/menu/menu.router'
+import tableRoute from './modules/table/table.router'
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -22,6 +23,7 @@ app.use(cookieParser())
 app.use('/api/auth', authRoute)
 app.use('/api/categories', categoryRoute)
 app.use('/api/menus', menuRoute)
+app.use('/api/tables', tableRoute)
 
 app.get('/', (req, res) => {
     res.send('Server Berjalan')
