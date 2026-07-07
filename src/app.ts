@@ -7,6 +7,7 @@ import authRoute from './modules/auth/auth.router'
 import categoryRoute from './modules/category/category.router'
 import menuRoute from './modules/menu/menu.router'
 import tableRoute from './modules/table/table.router'
+import orderRoute from './modules/order/order.router'
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -24,6 +25,7 @@ app.use('/api/auth', authRoute)
 app.use('/api/categories', categoryRoute)
 app.use('/api/menus', menuRoute)
 app.use('/api/tables', tableRoute)
+app.use('/api/orders', orderRoute)
 
 app.get('/', (req, res) => {
     res.send('Server Berjalan')
