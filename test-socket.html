@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Socket.IO</title>
+</head>
+<body>
+  <h2>Test Socket.IO - Buka Console (F12) untuk lihat log</h2>
+  
+  <button onclick="joinAsStaff()">Join sebagai Staff Dashboard</button>
+  <button onclick="joinAsCustomer()">Join sebagai Customer (Meja Test)</button>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script>
+    const socket = io('http://localhost:5000')
+
+    socket.on('connect', () => {
+      console.log('Terhubung ke server, socket id:', socket.id)
+    })
+
+    socket.on('newOrder', (data) => {
+      console.log('EVENT: Order baru masuk!', data)
+    })
+
+    socket.on('orderStatusUpdated', (data) => {
+      console.log('EVENT: Status order berubah!', data)
+    })
+
+    function joinAsStaff() {
+      socket.emit('joinStaffDashboard')
+      console.log('Bergabung sebagai Staff Dashboard')
+    }
+
+    function joinAsCustomer() {
+      const tableId = prompt('Masukkan tableId (id meja yang valid dari database):')
+      socket.emit('joinTable', tableId)
+      console.log('Bergabung sebagai Customer di meja:', tableId)
+    }
+  </script>
+</body>
+</html>

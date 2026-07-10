@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { OrderStatus } from "../../generated/prisma/enums";
+import { getIO } from "../../config/socket";
 
 interface OrderItemInput {
   menuId: string;
@@ -64,6 +65,9 @@ export const createOrderService = async (data: CreateOrderInput) => {
   });
 
   const totalPrice = calculateTotalPrice(order.orderItems);
+
+  const io = getIO()
+  io.to('staff-dashboard').emit('newOrder', {...order, totalPrice})
 
   return { ...order, totalPrice };
 };
@@ -135,6 +139,10 @@ export const updateOrderStatus = async (id: string, status: OrderStatus) => {
     where: { id },
     data: { status },
   });
+
+  const io = getIO()
+
+  io.to(`table-${existOrder.tableId}`).emit('orderStatusUpdated', updatedStatus)
 
   return updatedStatus;
 };
