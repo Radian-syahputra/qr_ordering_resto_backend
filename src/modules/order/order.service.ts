@@ -109,6 +109,7 @@ export const getOrderByIdService = async (id: string) => {
   const order = await prisma.order.findUnique({
     where: { id },
     include: {
+      table : true,
       orderItems: {
         include: {
           menu: true,
